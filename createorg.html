@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>SignUp</title>
+</head>
+<body>
+    <div> 
+        <div>
+            <input type="text" id="organisation" placeholder="orgname" >
+            <input type="text" id="description" placeholder="description" >
+            <button onclick="createorg()">create Org</button>
+            <script>
+                async function createorg(){
+                    const orgname = document.getElementById("organisation").value;
+                    const description = document.getElementById("description").value;
+                    const response = await axios.post("http://localhost:3000/create-organisation",{ orgname, description});
+                    console.log(response.data); 
+                    
+                    const div = document.createElement("div");
+                    const title = document.createElement("h2");
+                    title.textContent = orgname;
+                    const desc = document.createElement("p");
+                    desc.textContent = description;
+                    div.appendChild(title);
+                    div.appendChild(desc);
+                    const display = document.getElementById("display");
+                    display.appendChild(div);
+                }
+
+                async function showorg(){
+                    const div = document.createElement("div");
+                    const response = await axios.get("http://localhost:3000/get-organisation");
+                    const data = response.data;
+                    for(let i=0; i< data.length; i++){
+                        const title = document.createElement("h2");
+                        title.textContent = data[i].orgname;
+                        const desc = document.createElement("p");
+                        desc.textContent = data[i].description;
+                        div.appendChild(title);
+                        div.appendChild(desc);
+                    }
+                    const display = document.getElementById("display");
+                    display.appendChild(div);
+                }
+               showorg();
+            </script>
+        </div>
+        <div id="display">
+
+        </div>
+    </div>
+</body>
+</html>

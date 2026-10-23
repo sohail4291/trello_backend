@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>SignUp</title>
+</head>
+<body>
+    <div> 
+        <div>
+            <input type="text" id="show" placeholder="orgname" >
+            <button onclick="showorg()">show Org</button>
+            <script>
+            
+
+                async function showorg(){
+                    const displays  = document.getElementById("display");
+                    displays.innerHTML = "";
+                    const div = document.createElement("div");
+                    const response = await axios.get("http://localhost:3000/get-organisation");
+                    const data = response.data;
+                    for(let i=0; i< data.length; i++){
+                        const title = document.createElement("h2");
+                        title.textContent = data[i].orgname;
+                        const desc = document.createElement("p");
+                        desc.textContent = data[i].description;
+                        const button = document.createElement("button");
+                        button.innerText = "Add member";
+                        button.setAttribute("onclick", `addmember()`);
+                        div.appendChild(title);
+                        div.appendChild(desc);
+                        div.appendChild(button);
+                    }
+                    const display = document.getElementById("display");
+                    display.appendChild(div);
+                }
+               showorg();
+
+               async function addmember(){
+                const orgId = 
+                const username = prompt("Enter the username to add as member:");
+                const response = await axios.post(`http://localhost:3000/add-member/${orgId}`, { username });
+               }
+               const data = response.data;
+               console.log(data);
+               addmember();
+            </script>
+        </div>
+        <div id="display">
+
+        </div>
+    </div>
+</body>
+</html>
