@@ -1,4 +1,4 @@
-# Trello Backend Clone
+# Trello Backend Mock
 
 A backend service for a Trello-inspired project and task management application built with **Node.js**, **Express**, and **MongoDB (Mongoose)**. It supports user authentication, organization creation, team member management, project boards (dashboards), and ticket creation with status tracking.
 
